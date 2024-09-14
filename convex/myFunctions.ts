@@ -62,3 +62,9 @@ export const fetchRandomIdea = action({
     return idea;
   },
 });
+
+
+// writing an image to the DB via a mutation function
+export const generateUploadUrl = mutation(async (ctx) => {
+  return await ctx.storage.generateUploadUrl();
+});
