@@ -1,13 +1,15 @@
 import React from 'react';
-import FileUploadButton from '@/components/ui/fileUploadButton.tsx'; // Adjust the import path as needed
+import FileUploadButton from '@/components/ui/fileUploadButton.tsx';
+import { Button } from '@/components/ui/button';
+import graphic from '@/assets/landing_graphic.png';
 
 const FileUploaderScreen: React.FC = () => {
     const containerStyle: React.CSSProperties = {
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
-        alignItems: 'center',
-        height: '100vh', // Full viewport height
+        gap: '10px', 
+        marginTop: '20px',
+        fontFamily: 'Inknut Antiqua'
     };
 
     const headingStyle: React.CSSProperties = {
@@ -17,9 +19,13 @@ const FileUploaderScreen: React.FC = () => {
     
     return (
         <div>
-            <div style={containerStyle}>
+            <div style={{textAlign: 'center'}}>
                 <h1 style={headingStyle}>Generate Music for your Images and Videos</h1>
-                <FileUploadButton/>
+                
+                <div style={containerStyle}>
+                    <FileUploadButton/>
+                    <Button type='submit'>Generate Music</Button>
+                </div>
             </div>
         </div>
     );
