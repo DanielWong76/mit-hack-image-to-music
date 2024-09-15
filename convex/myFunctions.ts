@@ -72,10 +72,10 @@ interface PostData{
 
 
 // You can fetch data from and send data to third-party APIs via an action:
-export const fetchModalResponse = action({
+export const fetchModal = action({
   // Validators for arguments.
   args: { 
-    imageUrl: v.string()
+    imageUrl: v.any()
   },
 
   // Action implementation.
@@ -85,7 +85,7 @@ export const fetchModalResponse = action({
     const url = "https://baseballwalkerchris--example-sgl-vlm-model-generate-dev.modal.run";
     const requestData: PostData = {
       "image_url": imageUrl,
-      "question": "What is in this image?"   
+      "question": "What are the vibes of this image?"   
     };
     const response = await fetch(url, {
       method: "POST",
@@ -95,14 +95,7 @@ export const fetchModalResponse = action({
       body: JSON.stringify(requestData)
     });
     const imageDescription = await response.text();
-
-    // Write or query data by running Convex mutations/queries from within an action
-    // await ctx.runMutation(api.myFunctions.saveIdea, {
-    //   idea: idea.trim(),
-    //   random: true,
-    // });
-
-    // Optionally, return a value from your action
+    console.log(imageDescription);
     return imageDescription;
   },
 });
@@ -114,29 +107,30 @@ export const generateUploadUrl = mutation(async (ctx) => {
 
 export async function postToSuno(songDetails: any) {
   try {
-    console.log("a");
-    console.log(songDetails);
     // Send a POST request
-    const response = await fetch("https://studio-api.suno.ai/api/external/generate/", {
+    const response = await fetch("https://studio-api.suno.ai/api/generate/v2/", {
       method: "POST", // HTTP method
       headers: {
         "Content-Type": "application/json", // Specify the content type as JSON
         "Authorization": "Bearer mCa8TXTHJJ71y5V0eIDrTcwkC7EQiO2V",
       },
-      body: JSON.stringify(songDetails), // Convert data object to a JSON string
+      body: JSON.stringify({
+        "prompt": "",
+        "gpt_description_prompt": await songDetails, 
+        "mv": "chirp-v3-5"
+      }), // Convert data object to a JSON string
     });
-    console.log("b");
 
     // Check if the response is successful (status code 2xx)
     if (!response.ok) {
-      throw new Error(`Error from suno: ${response.statusText}`);
+      console.log(response.status)
+      throw new Error(`Error from uno: ${response.statusText}`);
     }
 
     // Parse the response JSON
     const responseData = await response.json();
 
     // Log or return the ID from the response
-    console.log("Response ID:", responseData.id);
     return responseData.id; // Assuming 'id' exists in the response JSON
   } catch (error) {
     console.error("Error posting to API:", error);
@@ -160,7 +154,6 @@ export const actPostToSuno = action({
 export async function getFromSuno(id: string) {
   try {
     // Send a GET request
-    console.log("https://studio-api.suno.ai/api/external/clips/?ids={"+id+"}")
     const response = await fetch("https://studio-api.suno.ai/api/external/clips/?ids={"+id+"}", {
       method: "GET", // HTTP method
       headers: {
@@ -192,7 +185,6 @@ export const actGetFromSuno = action({
 
   // Action implementation.
   handler: async (_,args) => {
-    console.log("it is "+args.id)
     const result = await getFromSuno(args.id)
 
     // Optionally, return a value from your action

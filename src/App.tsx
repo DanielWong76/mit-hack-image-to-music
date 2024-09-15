@@ -111,22 +111,28 @@ import { FormEvent, useRef, useState } from "react";
 import { useMutation, useQuery, useAction } from "convex/react";
 import { Button } from "@/components/ui/button"; 
 import { api } from "../convex/_generated/api";
+import { mostRecentImageUrl } from "convex/listMessages";
 
 
 export default function App() {
   const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
   const sendImage = useMutation(api.messages.sendImage);
-  const mostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
-  const fetchModalResponse = useAction(api.myFunctions.fetchModalResponse);
-  const response = fetchModalResponse({ imageUrl: mostRecentImageUrl })
+  const getMostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
+
+  const fetchModal = useAction(api.myFunctions.fetchModal);
+  const postToSuno = useAction(api.myFunctions.actPostToSuno);
+  const getFromSuno = useAction(api.myFunctions.actGetFromSuno);
+  const [songURL, setSongURL] = useState("");
+
 
   const imageInput = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
   async function handleSendImage(event: FormEvent) {
-    event.preventDefault();
+    // Convex-provided code
 
+    event.preventDefault();
     // Step 1: Get a short-lived upload URL
     const postUrl = await generateUploadUrl();
     // Step 2: POST the file to the URL
@@ -141,9 +147,18 @@ export default function App() {
     setSelectedImage(null);
     imageInput.current!.value = "";
 
-  console.log(response);
+    // Our code
+    const fetchModalResponse = await fetchModal({ imageUrl: mostRecentImageUrl })
+    console.log(fetchModalResponse);
+    
+    const id = await postToSuno({ songDetails: fetchModalResponse});
+    function pause(milliseconds: number) {
+      return new Promise(resolve => setTimeout(resolve, milliseconds));
+    }
+    await pause(60000)
+    const songUrl = await getFromSuno({ id });
+    console.log(songUrl);
   }
-  // Now I want to get the storage Id and query the database for the URL
 
   return (
     <>
