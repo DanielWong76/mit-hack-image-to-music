@@ -1,7 +1,6 @@
 import { v } from "convex/values";
 import { query, mutation, action } from "./_generated/server";
 import { api } from "./_generated/api";
-import ffmpeg from 'fluent-ffmpeg';
 import fs from 'fs';
 
 // Write your Convex functions in any file inside this directory (`convex`).
