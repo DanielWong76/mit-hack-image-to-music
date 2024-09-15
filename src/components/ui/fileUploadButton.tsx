@@ -1,54 +1,47 @@
-import React, { useRef, useState, ChangeEvent } from 'react';
-import { Button } from './button.tsx'; // Adjust the import path according to your setup
+import React, { useCallback, useState } from 'react';
+import { useDropzone } from 'react-dropzone';
 
-const FileUploadButton: React.FC = () => {
-  const fileInputRef = useRef<HTMLInputElement | null>(null); // Reference to the hidden file input
-  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+interface FileUploadButtonProps {
+  onImageSelect: (file: File) => void;
+}
 
-  // Function to handle file selection
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0] || null;
-    setSelectedFile(file);
-  };
+const FileUploadButton: React.FC<FileUploadButtonProps> = ({ onImageSelect }) => {
+  const [fileUrl, setFileUrl] = useState<string | null>(null);
 
-  // Function to trigger file input click
-  const handleButtonClick = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger the file input click
+  const onDrop = useCallback((acceptedFiles: File[]) => {
+    if (acceptedFiles.length > 0) {
+      const file = acceptedFiles[0];
+      const url = URL.createObjectURL(file);
+      setFileUrl(url);
+      onImageSelect(file); // Notify parent about the selected file
     }
-  };
+  }, [onImageSelect]);
+
+  const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div>
-      {/* Hidden file input */}
-      <input
-        type="file"
-        ref={fileInputRef}
-        style={{ display: 'none' }}
-        onChange={handleFileChange}
-        accept="image/*,video/*" // Adjust as needed
-      />
-
-      {/* Button to trigger file input */}
-      <Button onClick={handleButtonClick} style={{fontFamily: 'Inknut Antiqua'}}>
-        Upload File
-      </Button>
-
-      {/* Display selected file info */}
-      {selectedFile && (
-        <div>
-          <p>Selected file: {selectedFile.name}</p>
-          {/* Optional: Display file preview */}
-          {selectedFile.type.startsWith('image/') && (
-            <img src={URL.createObjectURL(selectedFile)} alt="Preview" style={{ maxWidth: '100px' }} />
-          )}
-          {selectedFile.type.startsWith('video/') && (
-            <video controls width="300">
-              <source src={URL.createObjectURL(selectedFile)} type={selectedFile.type} />
-              Your browser does not support the video tag.
-            </video>
-          )}
-        </div>
+    <div
+      {...getRootProps()}
+      style={{
+        border: '2px dashed #cccccc',
+        borderRadius: '10px',
+        padding: '20px',
+        textAlign: 'center',
+        cursor: 'pointer',
+        backgroundColor: isDragActive ? '#e9e9e9' : '#f9f9f9',
+        width: '200px',
+        height: '200px',
+        color: 'black',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+      }}
+    >
+      <input {...getInputProps()} />
+      {fileUrl ? (
+        <img src={fileUrl} alt="Preview" style={{ maxWidth: '100%', maxHeight: '100%' }} />
+      ) : (
+        <p>{isDragActive ? 'Drop the file here...' : 'Drag & drop files here, or click to select files'}</p>
       )}
     </div>
   );
