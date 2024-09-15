@@ -57,6 +57,8 @@ const FileUploaderScreen: React.FC = () => {
     }
   }
 
+
+
   return (
     <div className="upload">
       <div style={{ textAlign: 'center' }}>
