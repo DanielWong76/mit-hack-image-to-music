@@ -9,6 +9,7 @@ import Header from "./components/ui/header";
 import FileUploaderScreen from "./screens/FileUploadScreen";
 import Landing from "./screens/Landing";
 import DownloadMusicScreen from "./screens/DownloadMusicScreen";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
   const [newIdea, setNewIdea] = useState("");
@@ -31,11 +32,10 @@ function App() {
     { type: 'image/png' }
   );
   return (
-    <div>
-      {/* <Header/>
-      <FileUploaderScreen/> */}
-      <Landing/>
-    </div>
+    <Routes>
+      <Route path="/" element={<Landing />} />
+      <Route path="/upload" element={<FileUploaderScreen />} />
+    </Routes>
   );
 }
 
