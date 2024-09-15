@@ -27,6 +27,8 @@ const FileUploadButton: React.FC<FileUploadButtonProps> = ({ onImageSelect }) =>
         borderRadius: '10px',
         padding: '20px',
         textAlign: 'center',
+        fontFamily: 'monospace',
+        opacity: '0.6',
         cursor: 'pointer',
         backgroundColor: isDragActive ? '#e9e9e9' : '#f9f9f9',
         width: '200px',

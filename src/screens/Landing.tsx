@@ -10,7 +10,7 @@ const Landing: React.FC = () => {
   };
 
   return (
-    <div className="container">
+    <div className="title-container">
       <button className="button" onClick={handleButtonClick}>begin</button>
     </div>
   );
