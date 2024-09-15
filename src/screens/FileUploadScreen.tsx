@@ -1,9 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import FileUploadButton from '@/components/ui/fileUploadButton.tsx';
 import { Button } from '@/components/ui/button';
 import graphic from '@/assets/landing_graphic.png';
 
 const FileUploaderScreen: React.FC = () => {
+    const [data, setData] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
     const containerStyle: React.CSSProperties = {
         display: 'flex',
         justifyContent: 'center',
