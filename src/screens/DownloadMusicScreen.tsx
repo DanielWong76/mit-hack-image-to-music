@@ -1,22 +1,17 @@
-import React, { useRef } from "react";
+import React from "react";
 import AudioPlayer from "@/components/ui/audioPlayer";
 import ImageDisplay from "@/components/ui/imageDisplay";
 import DownloadButton from "@/components/ui/downloadButton";
+import { useLocation } from 'react-router-dom';
 import "./DownloadMusicScreen.css";
 
-interface DownloadMusicProps {
-  musicUrl: string;
-  mediaInput: File;
-}
-
-const DownloadMusicScreen: React.FC<DownloadMusicProps> = ({
-  musicUrl,
-  mediaInput,
-}) => {
-  const audioRef = useRef<HTMLAudioElement | null>(null);
+const DownloadMusicScreen: React.FC = () => {
+  const location = useLocation();
+  const { musicUrl, mediaInput } = location.state as { musicUrl: string; mediaInput: File };
+  console.log(musicUrl);
 
   return (
-    <div className="container">
+    <div className="container-2">
       <div className="button-container">
         <div className="top-center">
           <AudioPlayer audioUrl={musicUrl} />

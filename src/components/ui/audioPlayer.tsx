@@ -1,6 +1,4 @@
 import React, { useRef } from "react";
-import Play from "@/assets/Play.png";
-import Pause from "@/assets/pause.png";
 import { FaRegPlayCircle, FaRegPauseCircle } from "react-icons/fa";
 import "./styles/audioPlayer.css";
 
@@ -10,6 +8,7 @@ interface AudioPlayerProps {
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
+  console.log(audioUrl);
 
   const handlePlay = () => {
     if (audioRef.current) {
