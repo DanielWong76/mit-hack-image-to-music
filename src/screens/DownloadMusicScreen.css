@@ -16,19 +16,20 @@
 .button-container {
   margin-top: 10rem; 
   display: grid;
-  grid-template-rows: 1fr 1fr;   /* Two rows: both take equal space */
-  grid-template-columns: 1fr;    /* One column */
+  grid-template-rows: 1fr 1fr;   
+  grid-template-columns: 1fr;    
 }
 
 .lower-center {
-  grid-row: 2;                   /* Place the element in the second row */
-  justify-self: center;          /* Center the element horizontally */
+  grid-row: 2;                   
+  justify-self: center;          
 }
 
 .top-center {
-  grid-row: 1;                   /* Place the element in the second row */
-  justify-self: center;          /* Center the element horizontally */
+  grid-row: 1;                   
+  justify-self: center;          
   align-self: end;
 }
+
 
 
