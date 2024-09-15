@@ -9,7 +9,7 @@ const FileUploaderScreen: React.FC = () => {
   const navigate = useNavigate();
   const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
   const sendImage = useMutation(api.messages.sendImage);
-  const {getMostRecentImageUrl, refetch}  = useQuery(api.listMessages.mostRecentImageUrl);
+  const getMostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
   const fetchModal = useAction(api.myFunctions.fetchModalResponse);
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -37,13 +37,11 @@ const FileUploaderScreen: React.FC = () => {
       await sendImage({ storageId, author: name });
       setSelectedImage(null);
       
-      refetch()
       // Fetch response based on the uploaded image
       const mostRecentImageUrl = await getMostRecentImageUrl();
       console.log(mostRecentImageUrl);
       const fetchModalResponse = await fetchModal({ imageUrl: mostRecentImageUrl });
       console.log(fetchModalResponse);
-      refetch();
     } catch (error) {
       console.error('Error uploading image:', error);
     }
