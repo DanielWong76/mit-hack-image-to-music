@@ -1,6 +1,7 @@
 import React, {useRef} from "react";
 import AudioPlayer from "@/components/ui/audioPlayer";
 import ImageDisplay from "@/components/ui/imageDisplay";
+import DownloadButton from "@/components/ui/downloadButton";
 
 interface DownloadMusicProps {
     musicUrl: string;
@@ -13,6 +14,7 @@ const DownloadMusicScreen : React.FC<DownloadMusicProps> = ({musicUrl, mediaInpu
         <div>
             <AudioPlayer audioUrl={musicUrl}/>
             <ImageDisplay file={mediaInput}/>
+            <DownloadButton fileName="yes.mp3" fileUrl={musicUrl}/>
         </div>
     )
 }

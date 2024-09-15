@@ -29,10 +29,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ audioUrl }) => {
         </audio>
         <div>
           <button onClick={handlePlay}>
-            <img src={Play} alt="Play"/>
+            <img src={Play} alt="Play" style={{opacity: 'isHovered' ? 0.7 : 1,
+          transition: 'opacity 0.3s ease'}}/>
           </button>
           <button onClick={handlePause}>
-            <img src={Pause} alt="Pause"/>
+            <img src={Pause} alt="Pause" style={{opacity: 'isHovered' ? 0.7 : 1,
+          transition: 'opacity 0.3s ease'}}/>
           </button>
         </div>
       </div>
