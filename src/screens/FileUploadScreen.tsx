@@ -52,8 +52,8 @@ const FileUploaderScreen: React.FC = () => {
       const postToSunoResponse = await postToSuno({ songDetails: fetchModalResponse });
       console.log(postToSunoResponse);
 
-      // Wait for 2 minutes for the music to be generated
-      const waitTime = 120000
+      // Wait for 3 minutes for the music to be generated
+      const waitTime = 180000
       await new Promise((resolve) => setTimeout(resolve, waitTime));
 
       // Get generated music from Suno API

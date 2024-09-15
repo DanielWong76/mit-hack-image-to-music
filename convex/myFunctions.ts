@@ -87,7 +87,7 @@ export const fetchModal = action({
     const url = "https://baseballwalkerchris--example-sgl-vlm-model-generate-dev.modal.run";
     const requestData: PostData = {
       "image_url": imageUrl,
-      "question": "Give me a list of feelings and emotions that this image conveys. Answer in about 100 characters. "   
+      "question": "Give me a list of feelings and emotions that this image conveys, with no other words. Answer in about 80 characters. "   
     };
     const response = await fetch(url, {
       method: "POST",
