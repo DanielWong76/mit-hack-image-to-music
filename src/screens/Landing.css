@@ -53,18 +53,20 @@
   margin-top: 5rem;
   display: grid;
   grid-template-rows: 1fr 1fr;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr;
 }
 
 .file-upload {
   grid-row: 1;
+  grid-column: 2;
   justify-self: center;
+  margin: 0px 0px 0px;
 }
 
 .generate-button-container {
   grid-row: 2;
+  grid-column: 2;
   justify-self: center;
-  margin: 0px 0px 0px;
 }
 
 .generate-button {
@@ -84,4 +86,15 @@
 .generate-button:hover {
   color: rgba(250, 250, 250, 0.9);
   background-color: rgba(250, 250, 250, 0.3);
+}
+
+.video-window {
+  grid-row: 1; 
+  grid-column: 1; 
+}
+
+.video-button-container {
+  grid-row: 2;
+  grid-column: 1;
+  justify-self: center;
 }

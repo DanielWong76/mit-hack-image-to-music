@@ -1,6 +1,5 @@
 import React, { useCallback, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import "./styles/fileUploadButton.css";
 
 interface FileUploadButtonProps {
   onImageSelect: (file: File) => void;
