@@ -1,7 +1,5 @@
 /* prettier-ignore-start */
 
-/* prettier-ignore-start */
-
 /* eslint-disable */
 /**
  * Generated `api` utility.
