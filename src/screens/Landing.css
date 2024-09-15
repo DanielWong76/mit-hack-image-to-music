@@ -1,0 +1,36 @@
+
+.container {
+    display: flex;
+    position: fixed; /* Ensures the background stays fixed */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('../assets/bg_title1.png');
+    background-size: cover; /* Ensures the image covers the entire element */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    justify-content: center;
+    align-items: center;
+    z-index: -1; /* Places the background behind other content */
+  }
+
+
+.button {
+  color: rgba(250, 250, 250, 0.7);
+  background-color: rgba(250, 250, 250, 0.1);
+  border: none;
+  width: 10rem;
+  height: 3rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 20px;
+  font-style: italic;
+  font-family: monospace;
+  margin-top: 10rem;
+}
+
+.button:hover {
+  color: rgba(250, 250, 250, 0.9);
+  background-color: rgba(250, 250, 250, 0.3);
+}

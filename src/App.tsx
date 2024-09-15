@@ -7,6 +7,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
 import Header from "./components/ui/header";
 import FileUploaderScreen from "./screens/FileUploadScreen";
+import Landing from "./screens/Landing";
 
 function App() {
   const [newIdea, setNewIdea] = useState("");
@@ -18,8 +19,9 @@ function App() {
 
   return (
     <div>
-      <Header/>
-      <FileUploaderScreen/>
+      {/* <Header/>
+      <FileUploaderScreen/> */}
+      <Landing/>
     </div>
   );
 }
