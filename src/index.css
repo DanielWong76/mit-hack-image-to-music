@@ -1,8 +1,8 @@
-@tailwind base;
+/* @tailwind base;
 @tailwind components;
-@tailwind utilities;
+@tailwind utilities; */
 
-@layer base {
+/* @layer base {
   :root {
     --convex-yellow: #f3b01c;
     --convex-red: #ee342f;
@@ -53,9 +53,9 @@
   }
   .convex-purple {
     color: var(--convex-purple);
-  }
+  } */
 
-  @media screen and (min-width: 800px) {
+  /* @media screen and (min-width: 800px) {
     :root {
       font-size: 26px;
     }
@@ -65,8 +65,8 @@
     :root {
       font-size: 30px;
     }
-  }
-
+  } */
+/* 
   @media (prefers-color-scheme: dark) {
     :root {
       --background: 240 10% 3.9%;
@@ -98,13 +98,13 @@
       --ring: 240 4.9% 83.9%;
     }
   }
-}
+} */
 
-@layer base {
+/* @layer base {
   * {
     @apply border-border;
   }
   body {
     @apply bg-background text-foreground;
   }
-}
+} */

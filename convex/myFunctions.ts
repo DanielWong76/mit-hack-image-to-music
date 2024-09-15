@@ -87,6 +87,7 @@ export const fetchModal = action({
       "image_url": imageUrl,
       "question": "What are the vibes of this image?"   
     };
+    console.log("")
     const response = await fetch(url, {
       method: "POST",
       headers: {
