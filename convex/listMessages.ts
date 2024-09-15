@@ -1,10 +1,10 @@
 import { query } from "./_generated/server";
 
-export const getImages = query({
+export const mostRecentImageUrl = query({
   args: {},
   handler: async (ctx) => {
     const messages = await ctx.db.query("messages").collect();
-    console.log(Promise.all(
+    const imageList = await Promise.all(
       messages.map(async (message) => ({
         ...message,
         // If the message is an "image" its `body` is an `Id<"_storage">`
@@ -12,6 +12,10 @@ export const getImages = query({
           ? { url: await ctx.storage.getUrl(message.body) }
           : {}),
       })),
-    ));
+    );
+    const urlList = imageList.map((image) => image.url);
+    // const urlList = imageList.map((image) => image[2]);
+    return urlList[0];
   },
-});
+  });
+

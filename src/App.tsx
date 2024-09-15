@@ -108,13 +108,17 @@
 // export default App;
 
 import { FormEvent, useRef, useState } from "react";
-import { useMutation } from "convex/react";
+import { useMutation, useQuery, useAction } from "convex/react";
 import { Button } from "@/components/ui/button"; 
 import { api } from "../convex/_generated/api";
+
 
 export default function App() {
   const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
   const sendImage = useMutation(api.messages.sendImage);
+  const mostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
+  const fetchModalResponse = useAction(api.myFunctions.fetchModalResponse);
+  const response = fetchModalResponse({ imageUrl: mostRecentImageUrl })
 
   const imageInput = useRef<HTMLInputElement>(null);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
@@ -134,10 +138,13 @@ export default function App() {
     const { storageId } = await result.json();
     // Step 3: Save the newly allocated storage id to the database
     await sendImage({ storageId, author: name });
-
     setSelectedImage(null);
     imageInput.current!.value = "";
+
+  console.log(response);
   }
+  // Now I want to get the storage Id and query the database for the URL
+
   return (
     <>
     <form onSubmit={handleSendImage}>
@@ -159,7 +166,7 @@ export default function App() {
       disabled={!imageInput}
       onClick={async (e) => {
         e.preventDefault();
-        await api.listMessages.getImages({});
+        // await api.listMessages.getImages({});
       }}
       className="min-w-fit"
       >

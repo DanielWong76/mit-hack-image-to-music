@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, action } from "./_generated/server";
 import { v } from "convex/values";
 
 export const generateUploadUrl = mutation(async (ctx) => {
