@@ -1,5 +1,7 @@
 /* prettier-ignore-start */
 
+/* prettier-ignore-start */
+
 /* eslint-disable */
 /**
  * Generated `api` utility.
@@ -15,6 +17,8 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
+import type * as listMessages from "../listMessages.js";
+import type * as messages from "../messages.js";
 import type * as myFunctions from "../myFunctions.js";
 import type * as _schema from "../_schema.js";
 
@@ -27,6 +31,8 @@ import type * as _schema from "../_schema.js";
  * ```
  */
 declare const fullApi: ApiFromModules<{
+  listMessages: typeof listMessages;
+  messages: typeof messages;
   myFunctions: typeof myFunctions;
   _schema: typeof _schema;
 }>;
