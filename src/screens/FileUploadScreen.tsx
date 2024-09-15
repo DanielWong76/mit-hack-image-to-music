@@ -9,15 +9,17 @@ const FileUploaderScreen: React.FC = () => {
   const navigate = useNavigate();
   const generateUploadUrl = useMutation(api.messages.generateUploadUrl);
   const sendImage = useMutation(api.messages.sendImage);
-  const getMostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
-  const fetchModal = useAction(api.myFunctions.fetchModalResponse);
+
+  const mostRecentImageUrl = useQuery(api.listMessages.mostRecentImageUrl);
+  const fetchModal = useAction(api.myFunctions.fetchModal);
+  const postToSuno = useAction(api.myFunctions.actPostToSuno);
+  const getFromSuno = useAction(api.myFunctions.actGetFromSuno);
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [name] = useState(() => "User " + Math.floor(Math.random() * 10000));
 
   async function handleSendImage(event: FormEvent) {
     event.preventDefault();
-    console.log("Sending image");
     if (!selectedImage) return; // Do nothing if no image is selected
 
     try {
@@ -31,17 +33,25 @@ const FileUploaderScreen: React.FC = () => {
         body: selectedImage,
       });
       const { storageId } = await result.json();
-      console.log("storageId " + storageId);
 
       // Step 3: Save the newly allocated storage id to the database
       await sendImage({ storageId, author: name });
       setSelectedImage(null);
       
-      // Fetch response based on the uploaded image
-      const mostRecentImageUrl = await getMostRecentImageUrl();
-      console.log(mostRecentImageUrl);
       const fetchModalResponse = await fetchModal({ imageUrl: mostRecentImageUrl });
-      console.log(fetchModalResponse);
+
+      // Send Modal description to Suno API
+      const postToSunoResponse = await postToSuno({ songDetails: fetchModalResponse });
+      console.log(postToSunoResponse);
+
+      // Wait for 2 minutes for the music to be generated
+      const waitTime = 120000
+      await new Promise((resolve) => setTimeout(resolve, waitTime));
+
+      // Get generated music from Suno API
+      const getFromSunoResponse = await getFromSuno({ id: postToSunoResponse } );
+      console.log(getFromSunoResponse);
+
     } catch (error) {
       console.error('Error uploading image:', error);
     }

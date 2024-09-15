@@ -13,11 +13,9 @@ export const mostRecentImageUrl = query({
           : {}),
       })),
     );
-    console.log("hi");
-    console.log("imageList[0] id: " + imageList[0].id);
     const urlList = imageList.map((image) => image.url);
     // const urlList = imageList.map((image) => image[2]);
-    return urlList[0];
+    return await ctx.storage.getUrl('kg23850y52d9tw02qb3bwzkn7s70v88r');
   },
   });
 

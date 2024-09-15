@@ -85,9 +85,8 @@ export const fetchModal = action({
     const url = "https://baseballwalkerchris--example-sgl-vlm-model-generate-dev.modal.run";
     const requestData: PostData = {
       "image_url": imageUrl,
-      "question": "What are the vibes of this image?"   
+      "question": "Give me a list of feelings and emotions that this image conveys. Answer in about 100 characters. "   
     };
-    console.log("")
     const response = await fetch(url, {
       method: "POST",
       headers: {
@@ -96,7 +95,6 @@ export const fetchModal = action({
       body: JSON.stringify(requestData)
     });
     const imageDescription = await response.text();
-    console.log(imageDescription);
     return imageDescription;
   },
 });
@@ -117,22 +115,21 @@ export async function postToSuno(songDetails: any) {
       },
       body: JSON.stringify({
         "prompt": "",
-        "gpt_description_prompt": await songDetails, 
+        "tags": "instrumental music with the vibes of " + await songDetails,
         "mv": "chirp-v3-5"
       }), // Convert data object to a JSON string
     });
 
     // Check if the response is successful (status code 2xx)
     if (!response.ok) {
-      console.log(response.status)
-      throw new Error(`Error from uno: ${response.statusText}`);
+      throw new Error(`Error from suno: ${response.statusText}`);
     }
 
     // Parse the response JSON
     const responseData = await response.json();
 
     // Log or return the ID from the response
-    return responseData.id; // Assuming 'id' exists in the response JSON
+    return responseData.clips[0].id; // Assuming 'id' exists in the response JSON
   } catch (error) {
     console.error("Error posting to API:", error);
   }
@@ -155,7 +152,8 @@ export const actPostToSuno = action({
 export async function getFromSuno(id: string) {
   try {
     // Send a GET request
-    const response = await fetch("https://studio-api.suno.ai/api/external/clips/?ids={"+id+"}", {
+    const url = "https://studio-api.suno.ai/api/external/clips/?ids={"+id+"}"
+    const response = await fetch(url, {
       method: "GET", // HTTP method
       headers: {
         "Content-Type": "application/json", // Specify the content type as JSON
@@ -170,9 +168,9 @@ export async function getFromSuno(id: string) {
 
     // Parse the response JSON
     const responseData = await response.json();
+    console.log(responseData);
 
     // Log or return the response
-    console.log("Response:", responseData);
     return responseData[0].audio_url; // Return audio URL
   } catch (error) {
     console.error("Error getting from API:", error);
