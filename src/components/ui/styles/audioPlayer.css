@@ -1,0 +1,15 @@
+
+.play-button {
+    color: #fff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  font-size: 10rem; /* Increase the size of the icon */
+  opacity: 0.5;
+  padding: 1.5rem;
+}
+
+.play-button:hover {
+  opacity: 0.9;
+}

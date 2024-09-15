@@ -34,7 +34,8 @@ function App() {
     <div>
       {/* <Header/>
       <FileUploaderScreen/> */}
-      <Landing/>
+      {/* <Landing/> */}
+      <DownloadMusicScreen mediaInput={staticImageFile} musicUrl={'https://cdn1.suno.ai/23412b66-eade-417b-a179-d3510538fbde.mp3'}/>
     </div>
   );
 }
